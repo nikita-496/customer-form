@@ -1,0 +1,84 @@
+@import "./vars";
+
+@mixin legendStyle {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
+
+@mixin stageStyle {
+  background-color: $clr-primary;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 1.15rem;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+}
+
+@mixin wrapperStyle($mb) {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $mb;
+  width: 100%;
+}
+
+@mixin formLabelStyle {
+  position: absolute;
+  left: 1rem;
+  top: 0.8rem;
+  font-size: 0.95rem;
+  margin-bottom: $mrg-label;
+  padding: 0 0.5rem;
+  color: $clr-placeholder;
+  background-color: $clr-body-form;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+}
+@mixin formInputStyle($isValid) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1em;
+  font-size: 1.05rem;
+  border: 1px solid #dbe2ea;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 1.25rem;
+  background: none;
+  @if $isValid == true {
+    &:hover {
+      border-color: $clr-primary-light;
+    }
+    /* Change border when input focus*/
+
+    &:focus {
+      border-color: $clr-primary;
+    }
+  }
+  @if $isValid == false {
+    border: 1px solid $clr-error;
+    &:hover {
+      border-color: $clr-error-light;
+    }
+    /* Change border when input focus*/
+
+    &:focus {
+      border-color: $clr-error;
+    }
+  }
+}
+
+@mixin toUpLabel {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+}

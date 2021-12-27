@@ -1,0 +1,20 @@
+@import "./main.scss";
+@import "./vars";
+
+@media (max-width: map-get($breack-point, lg)) {
+  :root {
+    font-size: calc(0.3em + 1vw);
+  }
+}
+
+@media (max-width: map-get($breack-point, md)) {
+  :root {
+    font-size: calc(0.4em + 1vw);
+  }
+}
+
+@media (max-width: map-get($breack-point, sm)) {
+  :root {
+    font-size: calc(0.5em + 1vw);
+  }
+}
