@@ -5,13 +5,15 @@
       <custom-select
         :selectOptions="selectOptions2"
         :defaultValue="selected2"
+        :isPaspport="true"
+        :isRequired="isRequired[0]"
         @select="optionSelect"
       />
       <entry-field
         identify="getDate"
         labelName="Дата выдачи*"
         :date="true"
-        :isRequired="isRequired[0]"
+        :isRequired="isRequired[1]"
         @createDate="$emit('transferGetDate', $event)"
       />
     </div>
@@ -26,7 +28,7 @@
       />
     </div>
     <div class="row">
-      <entry-field identify="date" labelName="Кем выдан" :isPassport="true" />
+      <entry-field identify="get" labelName="Кем выдан" :isPassport="true" />
     </div>
   </div>
 </template>
@@ -41,6 +43,8 @@
     },
     data() {
       return {
+        /* type: "",*/
+        identify: "typeDoc",
         selectOptions2: [
           { name: "option 1", value: "Паспорт" },
           { name: "option 2", value: "Свидетельство о рождении" },
@@ -51,7 +55,9 @@
     },
     methods: {
       optionSelect(option) {
+        /* this.type = option.value;*/
         this.selected2 = option.value;
+        this.$emit("transferSelect", [this.selected2, this.identify]);
       },
     },
   };

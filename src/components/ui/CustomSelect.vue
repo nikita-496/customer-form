@@ -1,9 +1,13 @@
 <template>
   <div>
-    <legend v-if="isMultiSelect">Группа критериев</legend>
+    <legend v-if="isMultiSelect">Группа клиентов*</legend>
+    <legend v-else-if="isPaspport">Тип документа*</legend>
     <legend v-else>Лечащий врач</legend>
     <div class="select">
-      <p :class="isVisible ? 'title-active' : 'title'" @click="isVisible = !isVisible">
+      <p
+        :class="isVisible ? 'title-active' : isRequired ? 'is-error' : 'title'"
+        @click="isVisible = !isVisible"
+      >
         {{ isMultiSelect ? defaultMultiValue.join(" ") : defaultValue }}
         <span :class="isVisible ? 'toggle-open' : 'toggle-close'"></span>
       </p>
@@ -23,6 +27,7 @@
     props: {
       isMultiSelect: { type: Boolean },
       isPaspport: { type: Boolean },
+      isRequired: { type: Boolean, require: true },
       selectOptions: {
         type: Array,
         default() {
@@ -61,6 +66,7 @@
 
 <style lang="scss">
   @import "../../scss/_vars.scss";
+  @import "../../scss/_mixins.scss";
   legend {
     margin-bottom: $mrg-label;
   }
@@ -128,6 +134,16 @@
       cursor: pointer;
       background-color: rgba(235, 244, 248, 1);
       color: rgba(44, 39, 56, 1);
+    }
+  }
+  .is-error {
+    border: 1px solid $clr-error;
+    border-radius: 5px;
+    padding: 0.5em;
+    font-size: 0.8rem;
+    cursor: pointer;
+    &:hover {
+      border-color: $clr-error-light;
     }
   }
 </style>

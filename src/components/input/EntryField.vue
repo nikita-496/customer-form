@@ -1,55 +1,20 @@
+<!--Еще раз протетсировать валидацию и разобраться сней. Особеннополя во 2 и 3 шаге-->
+
 <template>
-  <div class="field-wrapper">
+  <div :class="isPersonal ? 'personal-wrapper' : 'field-wrapper'" :id="identify">
     <div v-if="date" class="date">
       <label class="label-date" for="identify">{{ labelName }}</label>
       <input
-        v-model="dateValue"
+        v-model="strValue"
         id="identify"
         type="date"
         :class="isRequired ? 'is-date-error' : 'date-input'"
-        v-on:blur="$emit('createDate', [dateValue, identify])"
+        v-on:blur="$emit('createDate', [strValue, identify])"
       />
-      <!-- <input
-        v-else
-        v-model="dateValue"
-        id="identify"
-        type="date"
-        class="date-input"
-        v-on:blur="$emit('createGetDate', dateValue, identify)"
-      />-->
     </div>
 
     <!--1 Stage Personal-->
-    <div v-if="isPersonal" class="form-control">
-      <!--<input
-        v-if="identify === 'firstName'"
-        v-model="$v.firstName.$model"
-        v-on:blur="$emit('createName', [firstName, identify])"
-        type="text"
-        :id="identify"
-        :class="$v.firstName.$error || isRequired[0] ? 'is-error' : 'form-input'"
-        autocomplete="off"
-        placeholder=" "
-      />
-      <input
-        v-if="identify === 'lastName'"
-        v-model="$v.lastName.$model"
-        v-on:blur="$emit('createLastName', [lastName, identify])"
-        type="text"
-        :id="identify"
-        :class="$v.lastName.$error || isRequired[1] ? 'is-error' : 'form-input'"
-        autocomplete="off"
-        placeholder=" "
-      />
-      <input
-        v-else
-        v-model="$v.patronymic.$model"
-        type="text"
-        :id="identify"
-        :class="$v.patronymic.$error ? 'is-error' : 'form-input'"
-        autocomplete="off"
-        placeholder=" "
-      />-->
+    <div v-if="isPersonal" class="form-personal">
       <input
         v-model="$v.personalValue.$model"
         v-on:blur="$emit('createLastName', [personalValue, identify])"
@@ -71,52 +36,76 @@
     <!--2 Stage Adress-->
     <div v-if="isAdress" class="form-adress">
       <input
-        v-model="$v.adress.$model"
+        v-if="identify !== 'streetAdress' && identify !== 'zipCode'"
+        v-model="$v.strValue.$model"
         type="text"
         :id="identify"
-        v-on:blur="$emit('createAdress', [adress, identify])"
-        :class="$v.value.$error || isRequired ? 'is-error' : 'form-input'"
+        v-on:blur="$emit('createAdress', [strValue, identify])"
+        :class="$v.strValue.$error || isRequired ? 'is-error' : 'form-input'"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <input
+        v-else
+        v-model="$v.numValue.$model"
+        type="text"
+        :id="identify"
+        :class="$v.numValue.$error ? 'is-error' : 'form-input'"
         autocomplete="off"
         placeholder=" "
       />
       <label :for="identify" class="form-label">{{ labelName }}</label>
       <span
-        v-if="$v.adress.$dirty && !$v.adress.processAlphaRegion && identify !== 'streetAdress'"
+        v-if="
+          $v.adress.$dirty &&
+          !$v.adress.processAlphaRegion &&
+          (identify !== 'streetAdress' || identify !== 'zipCode')
+        "
         class="error-message"
         >Поле {{ labelName }} должно состоять из букв</span
       >
-      <!--<span
+      <span
         v-if="
-          $v.value.$dirty &&
-          !$v.value.numeric &&
+          $v.numValue.$dirty &&
+          !$v.numValue.numeric &&
           (identify === 'streetAdress' || identify === 'zipCode')
         "
         class="error-message"
         >Поле {{ labelName }} должно состоять из цифр</span
-      >-->
+      >
     </div>
 
     <!--3 Stage Pasport-->
     <div v-if="isPassport" class="form-passport">
       <input
-        v-model="$v.value.$model"
+        v-if="identify !== 'series' && identify !== 'number'"
+        v-model="$v.strValue.$model"
         type="text"
         :id="identify"
-        :class="$v.value.$error ? 'is-error' : 'form-input'"
+        :class="$v.strValue.$error ? 'is-error' : 'form-input'"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <input
+        v-else
+        v-model="$v.numValue.$model"
+        type="text"
+        :id="identify"
+        :class="$v.numValue.$error ? 'is-error' : 'form-input'"
         autocomplete="off"
         placeholder=" "
       />
       <label :for="identify" class="form-label">{{ labelName }}</label>
       <span
-        v-if="$v.value.$dirty && !$v.value.processAlphaRegion && identify !== 'streetAdress'"
+        v-if="
+          $v.strValue.$dirty &&
+          !$v.strValue.processAlphaRegion &&
+          (identify !== 'series' || identify !== 'number')
+        "
         class="error-message"
         >Поле {{ labelName }} должно состоять из букв</span
       >
-      <span
-        v-if="
-          $v.value.$dirty && !$v.value.numeric && (identify === 'series' || identify === 'number')
-        "
-        class="error-message"
+      <span v-if="$v.numValue.$dirty && !$v.numValue.numeric" class="error-message"
         >Поле {{ labelName }} должно состоять из цифр</span
       >
     </div>
@@ -142,8 +131,9 @@
     data() {
       return {
         personalValue: "",
+        strValue: "",
         adress: "",
-        dateValue: "",
+        numValue: "",
       };
     },
     mixins: [validationMixin],
@@ -155,40 +145,56 @@
       adress: {
         processAlphaRegion,
       },
-      value: {
+      strValue: {
+        processAlpha,
+      },
+      numValue: {
         numeric,
       },
     },
-    /*computed: {
-      required() {
-        if (this.labelName[this.labelName.length - 1] === "*") {
-          return true;
-        }
-        return false;
-      },
-    },*/
   };
 </script>
 
 <style lang="scss" scoped>
   @import "../../scss/_vars.scss";
   @import "../../scss/_mixins.scss";
+  @import "../../scss/media.scss";
+
+  .personal-wrapper,
+  .field-wrapper {
+    &:not(:first-child) {
+      margin-left: 1.5em;
+      @include responsfield;
+    }
+  }
   .date {
-    width: 50%;
+    /*width: 60%;*/
+    width: 100%;
     .label-date {
       margin-bottom: $mrg-label;
     }
   }
-  .form-control,
+  .form-personal,
   .form-adress,
   .form-passport {
     display: inline-block;
     position: relative;
     width: 10rem;
     height: 3em;
-    &:not(:first-child) {
-      margin-left: 0.3em;
+  }
+
+  /*---------------------------1 Stage-----------------------------*/
+
+  #lastName {
+    @include responsOrder;
+    .form-personal {
+      @include responsLastNameField;
     }
+  }
+  #date {
+    /*margin-left: 45px;
+    margin-right: 50px;*/
+    width: 130px;
   }
   .form-adress {
     flex-basis: 250px;

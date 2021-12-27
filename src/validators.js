@@ -25,14 +25,14 @@ export const processAlpha = (personalValue) => {
   return found.join("") === personalValue ? true : false;
 };
 
-export const processAlphaRegion = (adress) => {
-  if (adress.length === 0) {
+export const processAlphaRegion = (strValue) => {
+  if (strValue.length === 0) {
     return true;
   }
-  const regex = /[a-zA-zZa-яА-Я]|\s|[.]/g;
-  const found = adress.match(regex);
+  const regex = /[a-zA-zZa-яА-Я]|\s|[.-]/g;
+  const found = strValue.match(regex);
   if (found === null) {
     return false;
   }
-  return found.join("") === adress ? true : false;
+  return found.join("") === strValue ? true : false;
 };

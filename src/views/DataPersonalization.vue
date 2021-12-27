@@ -13,7 +13,7 @@
         @createLastName="$emit('transferLastName', $event)"
       />
     </div>
-    <div class="row row-flex">
+    <div class="row-flex second-row">
       <entry-field
         identify="date"
         labelName="Дата рождения*"
@@ -23,9 +23,8 @@
       />
       <custom-check-box labelName="Пол" />
     </div>
-    <div class="row row-flex">
+    <div class="row-flex third-row">
       <div class="wrapper-phone">
-        <legend>Номер Телефона*</legend>
         <phone-field
           identify="phoneNumber"
           labelName="Пример: 7(892)540-20-01"
@@ -35,13 +34,14 @@
       </div>
       <custom-check-box labelName="Не отправлять СМС" :isSingle="true" />
     </div>
-    <div class="row row-flex">
+    <div class="row-flex">
       <div>
         <custom-select
           :selectOptions="selectOptions1"
           :defaultMultiValue="selected1"
-          @select="optionMultiSelect"
           :isMultiSelect="true"
+          :isRequired="isRequired[4]"
+          @select="optionMultiSelect"
         />
       </div>
       <div>
@@ -67,6 +67,9 @@
     },
     data() {
       return {
+        /*  multiSelect: [],*/
+        /*select: "",*/
+        identify: "multi",
         selectOptions1: [
           { name: "option 1", value: "VIP" },
           { name: "option 2", value: "Проблемные" },
@@ -88,14 +91,19 @@
           return;
         }
         if (option.value === "Очистить") {
+          /*this.multiSelect = [];*/
           this.selected1 = ["Группа клиентов"];
+          this.$emit("transferMultiSelect", ["", this.identify]);
           return;
         }
         let newSelected = this.selected1.filter((s) => s !== "Группа клиентов");
         newSelected.push(option.value);
+        /*  this.multiSelect = newSelected;*/
         this.selected1 = newSelected;
+        this.$emit("transferMultiSelect", [this.selected1, this.identify]);
       },
       optionSelect(option) {
+        /* this.select = option.value;*/
         this.selected2 = option.value;
       },
       /*transferToForm(event) {
@@ -109,18 +117,32 @@
 <style lang="scss" scoped>
   @import "../scss/_vars.scss";
   @import "../scss/_mixins.scss";
+  @import "../scss/media.scss";
   .wrapper {
     @include wrapperStyle(1em);
+    /*padding: 0 calc(50vw - 230px);*/
+    /*@include responsWrapperStage;*/
     .row {
       display: flex;
+      flex-wrap: wrap;
+
+      justify-content: center;
       margin-bottom: 1em;
     }
-    .row-flex {
+    .second-row,
+    .third-row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
+      margin-bottom: 1em;
+      @include responsRow;
       .wrapper-phone {
-        width: 50%;
+        /*width: 50%;*/
+        width: 70%;
       }
+    }
+    .third-row {
+      @include responsThirdRow;
     }
     .stage {
       @include stageStyle;
@@ -128,5 +150,6 @@
   }
   legend {
     @include legendStyle;
+    @include responsStage;
   }
 </style>

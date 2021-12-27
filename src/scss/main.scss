@@ -1,14 +1,17 @@
 @import "./vars";
+@import "./media.scss";
 
 :root {
   font-size: 1rem;
   box-sizing: border-box;
+  @include responsFontSize;
 }
 body {
   font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
   /*background-color: rgba(227, 171, 154, 0.7);*/
   /* background-color: rgb(172, 225, 211);*/
-  background-color: rgb(183, 210, 231);
+  /*background-color: rgb(183, 210, 231);*/
+  background-image: linear-gradient(120deg, rgb(209, 219, 233), rgb(240, 250, 243));
 }
 *,
 *::after,
@@ -37,5 +40,7 @@ input {
       text-align: center;
       font-size: 1.5rem;
     }
+    @include responsForm;
+    padding: 10px 10px;
   }
 }

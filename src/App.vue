@@ -11,14 +11,20 @@
           $v.form.lastName.$error,
           $v.form.date.$error,
           $v.form.phoneNumber.$error,
+          $v.form.multi.$error,
         ]"
         @transfer="getInfo"
         @transferName="getInfo"
         @transferLastName="getInfo"
         @transferDate="getInfo"
+        @transferMultiSelect="getInfo"
       />
       <adress :isRequired="[$v.form.sity.$error]" @transferAdress="getInfo" />
-      <passport-data :isRequired="[$v.form.getDate.$error]" @transferGetDate="getInfo" />
+      <passport-data
+        :isRequired="[$v.form.typeDoc.$error, $v.form.getDate.$error]"
+        @transferSelect="getInfo"
+        @transferGetDate="getInfo"
+      />
       <custom-button />
     </form>
   </main>
@@ -42,7 +48,9 @@
           lastName: "",
           date: "",
           phoneNumber: "",
+          multi: "",
           sity: "",
+          typeDoc: "",
           getDate: "",
         },
       };
@@ -62,7 +70,13 @@
         phoneNumber: {
           required,
         },
+        multi: {
+          required,
+        },
         sity: {
+          required,
+        },
+        typeDoc: {
           required,
         },
         getDate: {
@@ -84,17 +98,18 @@
         //debugger;
         switch (identify) {
           case "firstName":
-            console.log("тут");
             return (this.form[identify] = info);
           case "lastName":
             return (this.form[identify] = info);
           case "phoneNumber":
             return (this.form[identify] = info);
+          case "multi":
+            return (this.form[identify] = info);
           case "sity":
-            console.log("адресс пришел");
             return (this.form[identify] = info);
           case "date":
-            console.log("дата рождения пришла");
+            return (this.form[identify] = info);
+          case "typeDoc":
             return (this.form[identify] = info);
           case "getDate":
             return (this.form[identify] = info);
@@ -107,7 +122,7 @@
 </script>
 
 <style lang="scss">
-  @import "./scss/media.scss";
+  @import "./scss/main.scss";
   .error-message {
     font-size: 0.9rem;
     color: red;

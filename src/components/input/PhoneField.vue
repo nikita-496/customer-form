@@ -1,5 +1,6 @@
 <template>
   <div class="form-phone">
+    <legend>Номер Телефона*</legend>
     <input
       v-model="$v.phone.$model"
       @keydown.space.prevent
@@ -84,7 +85,6 @@
 
   .form-phone {
     position: relative;
-    width: 100%;
     height: 3em;
     .form-input {
       @include formInputStyle(true);
