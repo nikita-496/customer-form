@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <section class="wrapper-adress">
     <legend><span class="stage">2</span>Адресс</legend>
     <div class="row">
       <entry-field
@@ -30,7 +30,7 @@
         :labelName="n === 1 ? 'Индекс' : 'Страна'"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -46,18 +46,16 @@
 <style lang="scss" scoped>
   @import "../scss/_vars.scss";
   @import "../scss/_mixins.scss";
-  .wrapper {
+  .wrapper-adress {
     @include wrapperStyle(0.5em);
-    .row {
-      margin-bottom: 1em;
-      display: flex;
-      justify-content: space-between;
-    }
-    .stage {
-      @include stageStyle;
-    }
+  }
+  .row {
+    @include rowStyle;
+  }
+  .stage {
+    @include stageStyle;
   }
   legend {
-    @include legendStyle();
+    @include legendStyle;
   }
 </style>

@@ -24,9 +24,16 @@
   display: flex;
   flex-direction: column;
   margin-bottom: $mb;
-  width: 100%;
 }
-
+@mixin rowStyle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+  @media (max-width: map-get($breack-point, mobile)) {
+    justify-content: space-between;
+  }
+}
 @mixin formLabelStyle {
   position: absolute;
   left: 1rem;

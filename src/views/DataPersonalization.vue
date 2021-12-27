@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <section class="wrapper-personal">
     <legend><span class="stage">1</span>Персональные данные клиента</legend>
-    <div class="row">
+    <div class="fisrt-row">
       <entry-field
         v-for="n in 3"
         :key="n"
@@ -13,7 +13,7 @@
         @createLastName="$emit('transferLastName', $event)"
       />
     </div>
-    <div class="row-flex second-row">
+    <div class="second-row">
       <entry-field
         identify="date"
         labelName="Дата рождения*"
@@ -23,36 +23,33 @@
       />
       <custom-check-box labelName="Пол" />
     </div>
-    <div class="row-flex third-row">
-      <div class="wrapper-phone">
-        <phone-field
-          identify="phoneNumber"
-          labelName="Пример: 7(892)540-20-01"
-          :isRequired="isRequired[3]"
-          @create-phone="$emit('transfer', $event)"
-        />
-      </div>
+    <div class="third-row">
+      <!-- <div class="wrapper-phone">-->
+      <phone-field
+        identify="phoneNumber"
+        labelName="Пример: 7(892)540-20-01"
+        :isRequired="isRequired[3]"
+        @create-phone="$emit('transfer', $event)"
+      />
+      <!--</div>-->
       <custom-check-box labelName="Не отправлять СМС" :isSingle="true" />
     </div>
-    <div class="row-flex">
-      <div>
-        <custom-select
-          :selectOptions="selectOptions1"
-          :defaultMultiValue="selected1"
-          :isMultiSelect="true"
-          :isRequired="isRequired[4]"
-          @select="optionMultiSelect"
-        />
-      </div>
-      <div>
-        <custom-select
-          :selectOptions="selectOptions2"
-          :defaultValue="selected2"
-          @select="optionSelect"
-        />
-      </div>
+    <div class="last-row">
+      <custom-select
+        :selectOptions="selectOptions1"
+        :defaultMultiValue="selected1"
+        :isMultiSelect="true"
+        :isRequired="isRequired[4]"
+        @select="optionMultiSelect"
+      />
+
+      <custom-select
+        :selectOptions="selectOptions2"
+        :defaultValue="selected2"
+        @select="optionSelect"
+      />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -118,31 +115,29 @@
   @import "../scss/_vars.scss";
   @import "../scss/_mixins.scss";
   @import "../scss/media.scss";
-  .wrapper {
+  .wrapper-personal {
     @include wrapperStyle(1em);
-    /*padding: 0 calc(50vw - 230px);*/
-    /*@include responsWrapperStage;*/
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-
-      justify-content: center;
-      margin-bottom: 1em;
+    .fisrt-row {
+      @include rowStyle;
     }
     .second-row,
     .third-row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       margin-bottom: 1em;
       @include responsRow;
-      .wrapper-phone {
-        /*width: 50%;*/
-        width: 70%;
+      @media (max-width: map-get($breack-point, mobile)) {
+        margin-bottom: 2.5em;
       }
     }
     .third-row {
-      @include responsThirdRow;
+      @media (max-width: map-get($breack-point, mobile)) {
+        margin-bottom: 3.5em;
+      }
+    }
+    .last-row {
+      display: flex;
+      margin-bottom: 1em;
+      @include responsRow;
     }
     .stage {
       @include stageStyle;
@@ -150,6 +145,5 @@
   }
   legend {
     @include legendStyle;
-    @include responsStage;
   }
 </style>

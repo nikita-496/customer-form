@@ -47,8 +47,12 @@
   .container-radio {
     display: inline-flex;
     flex-direction: column;
-    /*flex-basis: 11em;*/
-
+    flex: 1;
+    align-items: flex-end;
+    @media (max-width: map-get($breack-point, mobile)) {
+      position: relative;
+      top: 0.8em;
+    }
     @include responsRadio();
     .legend-radio {
       margin-bottom: $mrg-label;
@@ -57,7 +61,11 @@
   }
   .container-single-radio {
     display: inline-flex;
-    /*flex-basis: 15em;*/
     flex-flow: row-reverse;
+    @media (max-width: map-get($breack-point, mobile)) {
+      position: relative;
+      top: 1.8em;
+    }
+    @include responsRadio();
   }
 </style>

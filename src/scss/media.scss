@@ -30,39 +30,34 @@
   }
 }
 
-/*personalization - 1stage*/
 @mixin responsfield {
   @media (max-width: map-get($breack-point, sm)) {
     margin-left: 0.3em;
   }
 }
-
 @mixin responsOrder {
-  @media (max-width: 525px) {
+  @media (max-width: map-get($breack-point, mobile)) {
     order: -1;
   }
 }
+@mixin responsLastName {
+  @media (max-width: map-get($breack-point, mobile)) {
+    margin: 0em;
+    flex-basis: 100%;
+  }
+}
 @mixin responsLastNameField {
-  @media (max-width: 525px) {
-    width: 20.5em;
+  @media (max-width: map-get($breack-point, mobile)) {
+    width: 100%;
   }
 }
 @mixin responsStage {
-  @media (max-width: 525px) {
+  @media (max-width: map-get($breack-point, mobile)) {
     margin: 1.5rem auto;
   }
 }
-
-/*personalization - 2stage*/
-@mixin responsRow {
-  @media (max-width: 525px) {
-    justify-content: center;
-    /*gap: 1em;*/
-  }
-}
-
 @mixin responsRadio {
-  @media (max-width: 525px) {
+  @media (max-width: map-get($breack-point, mobile)) {
     display: flex;
     flex-direction: row;
   }
@@ -73,12 +68,8 @@
     align-self: center;
   }
 }
-@mixin responsThirdRow {
-  flex-direction: column;
-  align-items: center;
-}
-/*@mixin responsWrapperStage {
-  @media (max-width: 525px) {
-    padding: 0 calc(1vw - 200px);
+@mixin responsRow {
+  @media (max-width: map-get($breack-point, mobile)) {
+    flex-direction: column;
   }
-}*/
+}

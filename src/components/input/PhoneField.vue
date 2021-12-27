@@ -86,6 +86,7 @@
   .form-phone {
     position: relative;
     height: 3em;
+    flex: 1;
     .form-input {
       @include formInputStyle(true);
     }

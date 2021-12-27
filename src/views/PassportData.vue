@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <section class="wrapper-document">
     <legend><span class="stage">3</span>Паспортные данные клиента</legend>
-    <div class="row">
+    <div class="row-fist">
       <custom-select
         :selectOptions="selectOptions2"
         :defaultValue="selected2"
@@ -18,7 +18,7 @@
       />
     </div>
 
-    <div class="row">
+    <div class="row-second">
       <entry-field
         v-for="n in 2"
         :key="n"
@@ -27,10 +27,10 @@
         :isPassport="true"
       />
     </div>
-    <div class="row">
+    <div class="row-last">
       <entry-field identify="get" labelName="Кем выдан" :isPassport="true" />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -66,12 +66,23 @@
 <style lang="scss" scoped>
   @import "../scss/_vars.scss";
   @import "../scss/_mixins.scss";
-  .wrapper {
+  @import "../scss/media.scss";
+  .wrapper-document {
     @include wrapperStyle(0.4em);
-    .row {
-      margin-bottom: 1em;
+    .row-fist,
+    .row-last {
       display: flex;
-      justify-content: space-between;
+      margin-bottom: 1em;
+      @include responsRow;
+      @media (max-width: map-get($breack-point, mobile)) {
+        margin-bottom: 2.5em;
+      }
+    }
+    .row-second {
+      @include rowStyle;
+    }
+    .row-last {
+      flex: 1;
     }
     .stage {
       @include stageStyle;

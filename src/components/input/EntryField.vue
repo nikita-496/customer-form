@@ -1,19 +1,17 @@
-<!--Еще раз протетсировать валидацию и разобраться сней. Особеннополя во 2 и 3 шаге-->
-
 <template>
   <div :class="isPersonal ? 'personal-wrapper' : 'field-wrapper'" :id="identify">
     <div v-if="date" class="date">
       <label class="label-date" for="identify">{{ labelName }}</label>
       <input
         v-model="strValue"
-        id="identify"
+        :id="identify"
         type="date"
         :class="isRequired ? 'is-date-error' : 'date-input'"
         v-on:blur="$emit('createDate', [strValue, identify])"
       />
     </div>
 
-    <!--1 Stage Personal-->
+    <!-------------1 Stage Personal------------------------->
     <div v-if="isPersonal" class="form-personal">
       <input
         v-model="$v.personalValue.$model"
@@ -33,7 +31,7 @@
       >
     </div>
 
-    <!--2 Stage Adress-->
+    <!-----------------------2 Stage Adress--------------------->
     <div v-if="isAdress" class="form-adress">
       <input
         v-if="identify !== 'streetAdress' && identify !== 'zipCode'"
@@ -75,7 +73,7 @@
       >
     </div>
 
-    <!--3 Stage Pasport-->
+    <!---------------------------3 Stage Pasport----------------->
     <div v-if="isPassport" class="form-passport">
       <input
         v-if="identify !== 'series' && identify !== 'number'"
@@ -167,8 +165,8 @@
       @include responsfield;
     }
   }
+
   .date {
-    /*width: 60%;*/
     width: 100%;
     .label-date {
       margin-bottom: $mrg-label;
@@ -179,25 +177,43 @@
   .form-passport {
     display: inline-block;
     position: relative;
-    width: 10rem;
+    width: 10em;
     height: 3em;
+    @media (max-width: map-get($breack-point, mobile)) {
+      width: 12em;
+    }
   }
-
+  .form-adress {
+    width: 15em;
+    @media (max-width: map-get($breack-point, mobile)) {
+      width: 12em;
+    }
+  }
+  .form-passport {
+    width: 15em;
+    @media (max-width: map-get($breack-point, mobile)) {
+      width: 12em;
+    }
+  }
+  #get {
+    width: 100%;
+    .form-passport {
+      width: 100%;
+      @media (max-width: map-get($breack-point, mobile)) {
+        width: 100%;
+      }
+    }
+  }
   /*---------------------------1 Stage-----------------------------*/
-
   #lastName {
     @include responsOrder;
+    @include responsLastName;
     .form-personal {
       @include responsLastNameField;
     }
   }
   #date {
-    /*margin-left: 45px;
-    margin-right: 50px;*/
-    width: 130px;
-  }
-  .form-adress {
-    flex-basis: 250px;
+    flex: 2;
   }
   .form-input,
   .date-input {
@@ -234,4 +250,6 @@
     font-size: 0.8rem;
     color: red;
   }
+
+  /*---------------------------2 Stage-----------------------------*/
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="isMultiSelect ? 'wrapper-multiSelect' : 'wrapper-select'">
     <legend v-if="isMultiSelect">Группа клиентов*</legend>
     <legend v-else-if="isPaspport">Тип документа*</legend>
     <legend v-else>Лечащий врач</legend>
@@ -67,6 +67,12 @@
 <style lang="scss">
   @import "../../scss/_vars.scss";
   @import "../../scss/_mixins.scss";
+  .wrapper-multiSelect {
+    flex: 2;
+    @media (max-width: map-get($breack-point, mobile)) {
+      margin-bottom: 1em;
+    }
+  }
   legend {
     margin-bottom: $mrg-label;
   }
@@ -74,6 +80,9 @@
   .multi-select {
     position: relative;
     width: 200px;
+    @media (max-width: map-get($breack-point, mobile)) {
+      width: 100%;
+    }
   }
   .title,
   .title-active {
