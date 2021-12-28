@@ -5,8 +5,8 @@
       <entry-field
         v-for="n in 3"
         :key="n"
-        :identify="n === 1 ? 'firstName' : n === 2 ? 'lastName' : 'patronymic'"
-        :labelName="n === 1 ? 'Имя*' : n === 2 ? 'Фамилия*' : 'Отчество'"
+        :identify="n === 1 ? 'lastName' : n === 2 ? 'firstName' : 'patronymic'"
+        :labelName="n === 1 ? 'Фамилия*' : n === 2 ? 'Имя*' : 'Отчество'"
         :isPersonal="true"
         :isRequired="n === 1 ? isRequired[0] : n === 2 ? isRequired[1] : false"
         @createName="$emit('transferName', $event)"
@@ -116,20 +116,21 @@
   @import "../scss/_mixins.scss";
   @import "../scss/media.scss";
   .wrapper-personal {
-    @include wrapperStyle(1em);
+    @include wrapperStyle(0.05em);
     .fisrt-row {
       @include rowStyle;
     }
     .second-row,
     .third-row {
       display: flex;
-      margin-bottom: 1em;
+      margin-bottom: 3.2em;
       @include responsRow;
       @media (max-width: map-get($breack-point, mobile)) {
-        margin-bottom: 2.5em;
+        margin-bottom: 3.5em;
       }
     }
     .third-row {
+      margin-bottom: 1em;
       @media (max-width: map-get($breack-point, mobile)) {
         margin-bottom: 3.5em;
       }

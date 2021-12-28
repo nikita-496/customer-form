@@ -1,7 +1,7 @@
 <template>
-  <div :class="isPersonal ? 'personal-wrapper' : 'field-wrapper'" :id="identify">
+  <div :class="isPersonal ? 'personal-wrapper' : 'field-wrapper'" :id="'wrapper-' + identify">
     <div v-if="date" class="date">
-      <label class="label-date" for="identify">{{ labelName }}</label>
+      <label class="date-label" for="identify">{{ labelName }}</label>
       <input
         v-model="strValue"
         :id="identify"
@@ -74,7 +74,7 @@
     </div>
 
     <!---------------------------3 Stage Pasport----------------->
-    <div v-if="isPassport" class="form-passport">
+    <div v-if="isPassport" class="form-document">
       <input
         v-if="identify !== 'series' && identify !== 'number'"
         v-model="$v.strValue.$model"
@@ -160,9 +160,11 @@
 
   .personal-wrapper,
   .field-wrapper {
-    &:not(:first-child) {
-      margin-left: 1.5em;
-      @include responsfield;
+    &:nth-child(2) {
+      margin-left: 0.1em;
+    }
+    &:last-child {
+      margin-left: 0.5em;
     }
   }
 
@@ -174,7 +176,7 @@
   }
   .form-personal,
   .form-adress,
-  .form-passport {
+  .form-document {
     display: inline-block;
     position: relative;
     width: 10em;
@@ -189,31 +191,32 @@
       width: 12em;
     }
   }
-  .form-passport {
+  .form-document {
     width: 15em;
     @media (max-width: map-get($breack-point, mobile)) {
       width: 12em;
     }
   }
-  #get {
-    width: 100%;
-    .form-passport {
-      width: 100%;
-      @media (max-width: map-get($breack-point, mobile)) {
-        width: 100%;
-      }
-    }
-  }
+
   /*---------------------------1 Stage-----------------------------*/
-  #lastName {
-    @include responsOrder;
-    @include responsLastName;
+  #wrapper-lastName {
+    margin: 0em;
+    flex-basis: 100%;
+    width: 100%;
     .form-personal {
-      @include responsLastNameField;
+      width: 100%;
     }
   }
-  #date {
-    flex: 2;
+  #wrapper-firstName,
+  #wrapper-patronymic {
+    flex: 1;
+  }
+  #wrapper-firstName .form-personal,
+  #wrapper-patronymic .form-personal {
+    width: 100%;
+  }
+  #wrapper-date {
+    flex: 1;
   }
   .form-input,
   .date-input {
@@ -225,6 +228,11 @@
   }
   .form-label {
     @include formLabelStyle();
+  }
+  .date-label {
+    font-size: 1.05rem;
+    position: relative;
+    top: -0.3em;
   }
   .form-input:focus ~ .form-label,
   .form-input:not(:placeholder-shown).form-input:not(:focus) ~ .form-label {
@@ -251,5 +259,15 @@
     color: red;
   }
 
-  /*---------------------------2 Stage-----------------------------*/
+  /*---------------------------3 Stage-----------------------------*/
+  #wrapper-getDate,
+  #wrapper-get {
+    margin: 0em;
+  }
+  #wrapper-get {
+    flex: 1;
+    .form-document {
+      width: 100%;
+    }
+  }
 </style>

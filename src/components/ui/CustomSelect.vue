@@ -3,7 +3,7 @@
     <legend v-if="isMultiSelect">Группа клиентов*</legend>
     <legend v-else-if="isPaspport">Тип документа*</legend>
     <legend v-else>Лечащий врач</legend>
-    <div class="select">
+    <div :class="isPaspport ? 'documnet-select' : 'select'">
       <p
         :class="isVisible ? 'title-active' : isRequired ? 'is-error' : 'title'"
         @click="isVisible = !isVisible"
@@ -74,28 +74,41 @@
     }
   }
   legend {
+    font-size: 1.05rem;
     margin-bottom: $mrg-label;
   }
   .select,
   .multi-select {
     position: relative;
-    width: 200px;
+    /*width: 15.5em;*/
+    width: 15em;
     @media (max-width: map-get($breack-point, mobile)) {
-      width: 100%;
+      width: 24em;
     }
+  }
+  .wrapper-multiSelect {
+    margin-right: 0.6em;
+  }
+  .wrapper-select {
+    margin-bottom: 1.3em;
+  }
+  .documnet-select {
+    position: relative;
+    width: 100%;
   }
   .title,
   .title-active {
     border: 1px solid #dbe2ea;
     border-radius: 5px;
     padding: 0.5em;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     cursor: pointer;
     &:hover {
       border-color: $clr-primary-light;
     }
   }
-  .select p {
+  .select p,
+  .documnet-select p {
     margin: 0;
     .toggle-close,
     .toggle-open {
@@ -120,7 +133,7 @@
     border: 1px solid #dbe2ea;
     border-radius: 5px;
     position: absolute;
-    top: 2.1em;
+    top: 2.5em;
     right: 0;
     z-index: 1;
     width: 100%;
@@ -132,7 +145,7 @@
   .options p,
   .options-active p {
     background: $clr-body-form;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     margin: 0;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -149,7 +162,7 @@
     border: 1px solid $clr-error;
     border-radius: 5px;
     padding: 0.5em;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     cursor: pointer;
     &:hover {
       border-color: $clr-error-light;

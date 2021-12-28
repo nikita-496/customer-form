@@ -86,7 +86,17 @@
   .form-phone {
     position: relative;
     height: 3em;
-    flex: 1;
+    width: 15em;
+    @media (max-width: map-get($breack-point, mobile)) {
+      width: 100%;
+    }
+    /*flex: 1;*/
+    legend {
+      position: absolute;
+      top: -1.7em;
+      padding: 0;
+      font-size: 1.05rem;
+    }
     .form-input {
       @include formInputStyle(true);
     }

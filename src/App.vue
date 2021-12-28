@@ -5,7 +5,7 @@
       <h4 class="error-message" v-if="$v.form.$error">Заполните все обазательные поля*</h4>
 
       <!--@transfer="get" @transferPersonal="getInfo" @transferDate="getInfo" @transferGetDate="getInfo"-->
-      <data-personalization
+      <personalization
         :isRequired="[
           $v.form.firstName.$error,
           $v.form.lastName.$error,
@@ -20,7 +20,7 @@
         @transferMultiSelect="getInfo"
       />
       <adress :isRequired="[$v.form.sity.$error]" @transferAdress="getInfo" />
-      <passport-data
+      <document
         :isRequired="[$v.form.typeDoc.$error, $v.form.getDate.$error]"
         @transferSelect="getInfo"
         @transferGetDate="getInfo"
@@ -36,11 +36,11 @@
 
   import CustomButton from "./components/ui/CustomButton.vue";
   import Adress from "./views/Adress.vue";
-  import DataPersonalization from "./views/DataPersonalization.vue";
-  import PassportData from "./views/PassportData.vue";
+  import Personalization from "./views/Personalization.vue";
+  import Document from "./views/Document.vue";
 
   export default {
-    components: { DataPersonalization, Adress, PassportData, CustomButton },
+    components: { Personalization, Adress, Document, CustomButton },
     data() {
       return {
         form: {
@@ -90,6 +90,7 @@
         if (this.$v.form.$error) {
           console.log(this.$v.form.$error);
         }
+        alert("Форма успешно зарегестрирована");
       },
       getInfo(e) {
         console.log(e);

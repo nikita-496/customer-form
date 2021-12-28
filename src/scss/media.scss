@@ -29,17 +29,6 @@
     padding: 10px 10px;
   }
 }
-
-@mixin responsfield {
-  @media (max-width: map-get($breack-point, sm)) {
-    margin-left: 0.3em;
-  }
-}
-@mixin responsOrder {
-  @media (max-width: map-get($breack-point, mobile)) {
-    order: -1;
-  }
-}
 @mixin responsLastName {
   @media (max-width: map-get($breack-point, mobile)) {
     margin: 0em;

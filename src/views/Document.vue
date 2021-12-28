@@ -69,20 +69,22 @@
   @import "../scss/media.scss";
   .wrapper-document {
     @include wrapperStyle(0.4em);
-    .row-fist,
-    .row-last {
+    .row-fist {
       display: flex;
-      margin-bottom: 1em;
-      @include responsRow;
-      @media (max-width: map-get($breack-point, mobile)) {
-        margin-bottom: 2.5em;
-      }
+      flex-direction: column;
+      margin-bottom: 1.7em;
     }
     .row-second {
       @include rowStyle;
     }
     .row-last {
+      display: flex;
+      margin-bottom: 1em;
       flex: 1;
+      @include responsRow;
+      @media (max-width: map-get($breack-point, mobile)) {
+        margin-bottom: 2.5em;
+      }
     }
     .stage {
       @include stageStyle;
