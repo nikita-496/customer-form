@@ -51,6 +51,10 @@
   }
   .row {
     @include rowStyle;
+    margin-bottom: 0.6em;
+    @media (max-width: map-get($breack-point, mobile)) {
+      margin-bottom: 1.2em;
+    }
   }
   .stage {
     @include stageStyle;

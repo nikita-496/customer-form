@@ -8,10 +8,6 @@
 }
 body {
   font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
-  /*background-color: rgba(227, 171, 154, 0.7);*/
-  /* background-color: rgb(172, 225, 211);*/
-  /*background-color: rgb(183, 210, 231);*/
-  background-image: linear-gradient(120deg, rgb(209, 219, 233), rgb(240, 250, 243));
 }
 *,
 *::after,
@@ -29,11 +25,9 @@ input {
     flex-direction: column;
     align-items: center;
     max-width: 35em;
-    /*min-height: 100vh;*/
     margin: 10px auto;
     padding: 10px 20px;
-    /*background: $clr-body-form;*/
-    background-color: rgb(82, 73, 21);
+    background: linear-gradient(120deg, rgba(209, 219, 233, 0.9), rgba(240, 250, 243, 0.9));
     border-radius: 5px;
     .form-header {
       width: 50%;

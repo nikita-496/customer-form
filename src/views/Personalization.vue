@@ -24,14 +24,12 @@
       <custom-check-box labelName="Пол" />
     </div>
     <div class="third-row">
-      <!-- <div class="wrapper-phone">-->
       <phone-field
         identify="phoneNumber"
         labelName="Пример: 7(892)540-20-01"
         :isRequired="isRequired[3]"
         @create-phone="$emit('transfer', $event)"
       />
-      <!--</div>-->
       <custom-check-box labelName="Не отправлять СМС" :isSingle="true" />
     </div>
     <div class="last-row">
@@ -42,7 +40,6 @@
         :isRequired="isRequired[4]"
         @select="optionMultiSelect"
       />
-
       <custom-select
         :selectOptions="selectOptions2"
         :defaultValue="selected2"
@@ -64,8 +61,6 @@
     },
     data() {
       return {
-        /*  multiSelect: [],*/
-        /*select: "",*/
         identify: "multi",
         selectOptions1: [
           { name: "option 1", value: "VIP" },
@@ -88,25 +83,18 @@
           return;
         }
         if (option.value === "Очистить") {
-          /*this.multiSelect = [];*/
           this.selected1 = ["Группа клиентов"];
           this.$emit("transferMultiSelect", ["", this.identify]);
           return;
         }
         let newSelected = this.selected1.filter((s) => s !== "Группа клиентов");
         newSelected.push(option.value);
-        /*  this.multiSelect = newSelected;*/
         this.selected1 = newSelected;
         this.$emit("transferMultiSelect", [this.selected1, this.identify]);
       },
       optionSelect(option) {
-        /* this.select = option.value;*/
         this.selected2 = option.value;
       },
-      /*transferToForm(event) {
-
-        alert(event);
-      },*/
     },
   };
 </script>
@@ -126,13 +114,13 @@
       margin-bottom: 3.2em;
       @include responsRow;
       @media (max-width: map-get($breack-point, mobile)) {
-        margin-bottom: 3.5em;
+        margin-bottom: 4.5em;
       }
     }
     .third-row {
-      margin-bottom: 1em;
+      margin-bottom: 1.6em;
       @media (max-width: map-get($breack-point, mobile)) {
-        margin-bottom: 3.5em;
+        margin-bottom: 3em;
       }
     }
     .last-row {

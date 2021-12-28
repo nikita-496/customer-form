@@ -1,6 +1,6 @@
 <template>
   <section class="wrapper-document">
-    <legend><span class="stage">3</span>Паспортные данные клиента</legend>
+    <legend><span class="stage">3</span>Документы клиента</legend>
     <div class="row-fist">
       <custom-select
         :selectOptions="selectOptions2"
@@ -43,7 +43,6 @@
     },
     data() {
       return {
-        /* type: "",*/
         identify: "typeDoc",
         selectOptions2: [
           { name: "option 1", value: "Паспорт" },
@@ -55,7 +54,6 @@
     },
     methods: {
       optionSelect(option) {
-        /* this.type = option.value;*/
         this.selected2 = option.value;
         this.$emit("transferSelect", [this.selected2, this.identify]);
       },
@@ -76,6 +74,10 @@
     }
     .row-second {
       @include rowStyle;
+      margin-bottom: 0.8em;
+      @media (max-width: map-get($breack-point, mobile)) {
+        margin-bottom: 1.1em;
+      }
     }
     .row-last {
       display: flex;
@@ -83,7 +85,7 @@
       flex: 1;
       @include responsRow;
       @media (max-width: map-get($breack-point, mobile)) {
-        margin-bottom: 2.5em;
+        margin-bottom: 2em;
       }
     }
     .stage {

@@ -23,10 +23,19 @@
         placeholder=" "
       />
       <label :for="identify" class="form-label">{{ labelName }}</label>
-      <span v-if="$v.personalValue.$dirty && !$v.personalValue.minLength" class="error-message"
+      <span
+        v-if="
+          $v.personalValue.$dirty && !$v.personalValue.minLength && !$v.personalValue.processAlpha
+        "
+        class="error-message"
+        >Поле {{ labelName }} должно быть более 2 символов и состоять из букв</span
+      >
+      <span v-else-if="$v.personalValue.$dirty && !$v.personalValue.minLength" class="error-message"
         >Поле {{ labelName }} должно быть более 2 символов</span
       >
-      <span v-if="$v.personalValue.$dirty && !$v.personalValue.processAlpha" class="error-message"
+      <span
+        v-else-if="$v.personalValue.$dirty && !$v.personalValue.processAlpha"
+        class="error-message"
         >Поле {{ labelName }} должно состоять из букв</span
       >
     </div>
@@ -35,11 +44,11 @@
     <div v-if="isAdress" class="form-adress">
       <input
         v-if="identify !== 'streetAdress' && identify !== 'zipCode'"
-        v-model="$v.strValue.$model"
+        v-model="$v.adress.$model"
         type="text"
         :id="identify"
-        v-on:blur="$emit('createAdress', [strValue, identify])"
-        :class="$v.strValue.$error || isRequired ? 'is-error' : 'form-input'"
+        v-on:blur="$emit('createAdress', [adress, identify])"
+        :class="$v.adress.$error || isRequired ? 'is-error' : 'form-input'"
         autocomplete="off"
         placeholder=" "
       />
@@ -73,7 +82,7 @@
       >
     </div>
 
-    <!---------------------------3 Stage Pasport----------------->
+    <!---------------------------3 Stage Document----------------->
     <div v-if="isPassport" class="form-document">
       <input
         v-if="identify !== 'series' && identify !== 'number'"
@@ -97,7 +106,7 @@
       <span
         v-if="
           $v.strValue.$dirty &&
-          !$v.strValue.processAlphaRegion &&
+          !$v.strValue.processAlpha &&
           (identify !== 'series' || identify !== 'number')
         "
         class="error-message"
@@ -205,6 +214,7 @@
     width: 100%;
     .form-personal {
       width: 100%;
+      margin-bottom: 0.3rem;
     }
   }
   #wrapper-firstName,
@@ -254,9 +264,14 @@
   }
   .error-message {
     position: absolute;
-    top: 3em;
+    top: 3.4em;
     font-size: 0.8rem;
+    line-height: 12px;
     color: red;
+    @media (max-width: map-get($breack-point, mobile)) {
+      top: 3.5em;
+      font-size: 0.75rem;
+    }
   }
 
   /*---------------------------3 Stage-----------------------------*/

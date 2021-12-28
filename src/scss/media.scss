@@ -6,6 +6,9 @@
     font-size: calc(0.4em + 1vw);
   }
   @media (max-width: map-get($breack-point, sm)) {
+    font-size: calc(0.6em + 1vw);
+  }
+  @media (max-width: 350px) {
     font-size: calc(0.5em + 1vw);
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">Зарегестрироваться</button>
+  <button class="btn">Зарегистрироваться</button>
 </template>
 
 <style lang="scss">

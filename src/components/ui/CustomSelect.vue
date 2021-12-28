@@ -80,7 +80,6 @@
   .select,
   .multi-select {
     position: relative;
-    /*width: 15.5em;*/
     width: 15em;
     @media (max-width: map-get($breack-point, mobile)) {
       width: 24em;
@@ -98,7 +97,7 @@
   }
   .title,
   .title-active {
-    border: 1px solid #dbe2ea;
+    border: 1px solid #a1bcdb;
     border-radius: 5px;
     padding: 0.5em;
     font-size: 0.95rem;
@@ -133,7 +132,7 @@
     border: 1px solid #dbe2ea;
     border-radius: 5px;
     position: absolute;
-    top: 2.5em;
+    top: 2.6em;
     right: 0;
     z-index: 1;
     width: 100%;
@@ -154,7 +153,8 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgba(235, 244, 248, 1);
+      /*background-color: rgba(235, 244, 248, 1);*/
+      background-color: $clr-primary-light;
       color: rgba(44, 39, 56, 1);
     }
   }

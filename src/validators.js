@@ -1,38 +1,18 @@
 //Phone
-export const checkFirstChar = (phone) => phone[0] === "7";
+export const checkFirstSymbol = (phone) => phone[0] === "7";
+export const validLength = (phone) => phone.length === 15;
 
-export const allowSpecialChar = (phone) => {
-  let regexp = /\d[()-]/g;
-  let result = phone.match(regexp);
-  if (phone.length === 0 || result === null) {
-    result = false;
-  }
-  return result;
-};
+export const processAlpha = (value) => processSrting(value, /[a-zA-zZa-яА-Я]/g);
+export const processAlphaRegion = (value) => processSrting(value, /[a-zA-zZa-яА-Я]|\s|[.-]/g);
 
-export const determineLeng = (phone) => phone.length === 15;
-
-//Pesron
-export const processAlpha = (personalValue) => {
-  if (personalValue.length === 0) {
+const processSrting = (value, regex) => {
+  if (value.length === 0) {
     return true;
   }
-  const regex = /[a-zA-zZa-яА-Я]/g;
-  const found = personalValue.match(regex);
+
+  const found = value.match(regex);
   if (found === null) {
     return false;
   }
-  return found.join("") === personalValue ? true : false;
-};
-
-export const processAlphaRegion = (strValue) => {
-  if (strValue.length === 0) {
-    return true;
-  }
-  const regex = /[a-zA-zZa-яА-Я]|\s|[.-]/g;
-  const found = strValue.match(regex);
-  if (found === null) {
-    return false;
-  }
-  return found.join("") === strValue ? true : false;
+  return found.join("") === value ? true : false;
 };

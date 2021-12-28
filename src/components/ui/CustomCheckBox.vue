@@ -54,7 +54,7 @@
       position: relative;
       top: 0.8em;
       .legend-radio {
-        margin: 0;
+        margin-bottom: 0.25em;
       }
     }
     @include responsRadio();

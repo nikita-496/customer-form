@@ -2,13 +2,11 @@
   <main class="main">
     <form class="form" @submit.prevent="submit">
       <h2 class="form-header">Регистрация</h2>
-      <h4 class="error-message" v-if="$v.form.$error">Заполните все обазательные поля*</h4>
-
-      <!--@transfer="get" @transferPersonal="getInfo" @transferDate="getInfo" @transferGetDate="getInfo"-->
+      <snackbar @close="changeStateSnackbar" :isSuccess="isSuccess" :isError="isError" />
       <personalization
         :isRequired="[
-          $v.form.firstName.$error,
           $v.form.lastName.$error,
+          $v.form.firstName.$error,
           $v.form.date.$error,
           $v.form.phoneNumber.$error,
           $v.form.multi.$error,
@@ -32,15 +30,17 @@
 
 <script>
   import { validationMixin } from "vuelidate";
-  import { required } from "vuelidate/lib/validators";
+  import { required, minLength } from "vuelidate/lib/validators";
+  import { validLength, checkFirstSymbol, processAlpha, processAlphaRegion } from "./validators";
 
   import CustomButton from "./components/ui/CustomButton.vue";
   import Adress from "./views/Adress.vue";
   import Personalization from "./views/Personalization.vue";
   import Document from "./views/Document.vue";
+  import Snackbar from "./components/Snackbar.vue";
 
   export default {
-    components: { Personalization, Adress, Document, CustomButton },
+    components: { Personalization, Adress, Document, Snackbar, CustomButton },
     data() {
       return {
         form: {
@@ -53,6 +53,8 @@
           typeDoc: "",
           getDate: "",
         },
+        isSuccess: false,
+        isError: false,
       };
     },
     mixins: [validationMixin],
@@ -60,21 +62,28 @@
       form: {
         firstName: {
           required,
+          minLength: minLength(2),
+          processAlpha,
         },
         lastName: {
           required,
+          minLength: minLength(2),
+          processAlpha,
         },
         date: {
           required,
         },
         phoneNumber: {
           required,
+          validLength,
+          checkFirstSymbol,
         },
         multi: {
           required,
         },
         sity: {
           required,
+          processAlphaRegion,
         },
         typeDoc: {
           required,
@@ -88,35 +97,21 @@
       submit() {
         this.$v.form.$touch();
         if (this.$v.form.$error) {
-          console.log(this.$v.form.$error);
+          this.isError = true;
+          this.isSuccess = false;
+          return;
         }
-        alert("Форма успешно зарегестрирована");
+        this.isSuccess = true;
       },
       getInfo(e) {
-        console.log(e);
         let [info, identify] = [...e];
-        console.log(info, identify);
-        //debugger;
-        switch (identify) {
-          case "firstName":
-            return (this.form[identify] = info);
-          case "lastName":
-            return (this.form[identify] = info);
-          case "phoneNumber":
-            return (this.form[identify] = info);
-          case "multi":
-            return (this.form[identify] = info);
-          case "sity":
-            return (this.form[identify] = info);
-          case "date":
-            return (this.form[identify] = info);
-          case "typeDoc":
-            return (this.form[identify] = info);
-          case "getDate":
-            return (this.form[identify] = info);
-          default:
-            console.log("Не обязательное поле!");
+        return (this.form[identify] = info);
+      },
+      changeStateSnackbar(e) {
+        if (e === "success") {
+          return (this.isSuccess = false);
         }
+        return (this.isError = false);
       },
     },
   };
@@ -124,8 +119,11 @@
 
 <style lang="scss">
   @import "./scss/main.scss";
-  .error-message {
-    font-size: 0.9rem;
-    color: red;
+
+  body {
+    background-image: url("/img/cover2.49b3ab92.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 </style>
