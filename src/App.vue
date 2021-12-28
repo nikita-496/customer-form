@@ -121,7 +121,7 @@
   @import "./scss/main.scss";
 
   body {
-    background-image: url("/img/cover2.49b3ab92.jpg");
+    background-image: url("../public/img/cover2.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
