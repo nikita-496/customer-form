@@ -118,8 +118,8 @@
 </script>
 
 <style lang="scss">
-  /*@import "@/scss/style.scss";*/
-  @import "@/assets/css/style.scss";
+  @import "./assets/css/style.scss";
+  //@import "@/assets/styles/main.scss";
   body {
     background-image: url("../public/img/cover2.jpg");
     background-position: center;
